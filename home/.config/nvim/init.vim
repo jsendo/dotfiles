@@ -29,6 +29,9 @@ Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 
+" git
+Plug 'tpope/vim-fugitive'
+
 " Initialize plugin system
 call plug#end()
 
@@ -39,9 +42,15 @@ set background=dark
 " set colors
 "
 "
+
+" fugitive 
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gd :Gdiff<cr>
+
 nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <leader>ls :ls<cr>:b<space>
 nnoremap <leader>s :!<space>
+" fzf
 nnoremap <C-f> :Files<CR>
 nnoremap <C-t> :GFiles<CR>
 nnoremap <C-g> :Rg<Cr>
