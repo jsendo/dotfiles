@@ -18,6 +18,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
+Plug 'edkolev/tmuxline.vim'
 
 
 " code style/formatting/completion
@@ -39,6 +40,10 @@ let g:airline_theme='solarized'
 set termguicolors
 colorscheme NeoSolarized
 set background=dark
+
+" might need this to work with tmux
+"set t_8f=^[[38;2;%lu;%lu;%lum
+"set t_8b=^[[48;2;%lu;%lu;%lum
 " set colors
 "
 "
