@@ -1,8 +1,8 @@
 let g:python_host_prog = $HOME . '/.asdf/installs/python/2.7.17/bin/python'
 let g:python3_host_prog = $HOME . '/.asdf/installs/python/3.8.1/bin/python'
-let g:coc_global_extensions = ['coc-solargraph']
+"let g:coc_global_extensions = ['coc-solargraph']
 "let mapleader = ";"
-let mapleader = "\<tab>"
+let mapleader = "\<space>"
 
 "let g:go_info_mode='guru'
 "let g:go_auto_type_info=1
