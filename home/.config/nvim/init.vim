@@ -1,5 +1,5 @@
-let g:python_host_prog = $HOME . '/.asdf/installs/python/2.7.17/bin/python'
-let g:python3_host_prog = $HOME . '/.asdf/installs/python/3.8.1/bin/python'
+let g:python_host_prog = $HOME . '/.asdf/installs/python/2.7.18/bin/python'
+let g:python3_host_prog = $HOME . '/.asdf/installs/python/3.10.2/bin/python'
 "let g:coc_global_extensions = ['coc-solargraph']
 "let mapleader = ";"
 let mapleader = "\<space>"
@@ -33,13 +33,19 @@ Plug 'preservim/nerdtree'
 " git
 Plug 'tpope/vim-fugitive'
 
+Plug 'ojroques/vim-oscyank'
+
 " Initialize plugin system
 call plug#end()
 
 let g:airline_theme='solarized'
-set termguicolors
+if (has("termguicolors"))
+  set termguicolors
+endif
+" set termguicolors
 colorscheme NeoSolarized
 set background=dark
+"set clipboard+=unnamedplus
 
 " might need this to work with tmux
 "set t_8f=^[[38;2;%lu;%lu;%lum
@@ -49,8 +55,8 @@ set background=dark
 "
 
 " fugitive 
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gb :Git blame<cr>
+nnoremap <leader>gd :Git diff<cr>
 
 nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <leader>ls :ls<cr>:b<space>
@@ -65,12 +71,27 @@ vnoremap  <leader>y  "+y
 nnoremap  <leader>Y  "+yg_
 nnoremap  <leader>y  "+y
 nnoremap  <leader>yy  "+yy
+vnoremap  <leader>c :OSCYank<CR>
 
 " " Paste from clipboard
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
+
+let g:clipboard = {
+  \   'name': 'win32yank-wsl',
+  \   'copy': {
+  \      '+': '/path-file/win32yank.exe -i --crlf',
+  \      '*': '/path-file/win32yank.exe -i --crlf',
+  \    },
+  \   'paste': {
+  \      '+': '/path-file/win32yank.exe -o --lf',
+  \      '*': '/path-file/win32yank.exe -o --lf',
+  \   },
+  \   'cache_enabled': 0,
+  \ }
+  
 
 " This is the default extra key bindings
 let g:fzf_action = {
