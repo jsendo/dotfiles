@@ -16,6 +16,9 @@ let mapleader = "\<space>"
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin(stdpath('data') . '/plugged')
 
+" markdown preview
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+
 "  Themes and stuff
 "Plug 'icymind/NeoSolarized'
 "Plug 'lifepillar/vim-solarized8'
@@ -116,6 +119,7 @@ set background=dark
 
 " fugitive 
 nnoremap <leader>gb :Git blame<cr>
+nnoremap <leader>gc :Git blame close<cr>
 nnoremap <leader>gd :Git diff<cr>
 
 nnoremap <C-n> :NERDTreeToggle<CR>
@@ -336,6 +340,7 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
+set dir=~/tmp
 
 autocmd FileType go   setlocal noexpandtab shiftwidth=4 softtabstop=4 tabstop=4
 
