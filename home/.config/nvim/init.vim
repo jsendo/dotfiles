@@ -1,5 +1,9 @@
 let g:python_host_prog = $HOME . '/.asdf/installs/python/2.7.18/bin/python'
 let g:python3_host_prog = $HOME . '/.asdf/installs/python/3.10.2/bin/python'
+let g:node_host_prog = $HOME . '/.asdf/installs/nodejs/19.4.0/.npm/lib/node_modules/neovim/bin/cli.js'
+
+let g:ruby_host_prog = '~/.asdf/installs/ruby/3.2.0/bin/neovim-ruby-host'
+"let g:ruby_host_prog = $HOME . '/.asdf/installs/ruby/3.2.0/bin/ruby'
 "let g:coc_global_extensions = ['coc-solargraph']
 "let mapleader = ";"
 let mapleader = "\<space>"
@@ -13,8 +17,9 @@ let mapleader = "\<space>"
 call plug#begin(stdpath('data') . '/plugged')
 
 "  Themes and stuff
-Plug 'icymind/NeoSolarized'
-Plug 'lifepillar/vim-solarized8'
+"Plug 'icymind/NeoSolarized'
+"Plug 'lifepillar/vim-solarized8'
+Plug 'ishan9299/nvim-solarized-lua'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
@@ -35,6 +40,12 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'ojroques/vim-oscyank'
 
+" github copilot
+Plug 'github/copilot.vim'
+
+" treesitter 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " Initialize plugin system
 call plug#end()
 
@@ -43,7 +54,56 @@ if (has("termguicolors"))
   set termguicolors
 endif
 " set termguicolors
-colorscheme NeoSolarized
+"colorscheme NeoSolarized
+lua <<EOF
+--colorscheme solarized
+vim.cmd('colorscheme solarized')
+
+--treesitter
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the four listed parsers should always be installed)
+  ensure_installed = { "c", "lua", "vim", "help", "javascript", "ruby", "typescript", "vue", "pug" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  -- List of parsers to ignore installing (for "all")
+  --ignore_install = { "javascript" },
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    disable = { "c", "rust" },
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    disable = function(lang, buf)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+EOF
 set background=dark
 "set clipboard+=unnamedplus
 
@@ -82,12 +142,12 @@ vnoremap <leader>P "+P
 let g:clipboard = {
   \   'name': 'win32yank-wsl',
   \   'copy': {
-  \      '+': '/path-file/win32yank.exe -i --crlf',
-  \      '*': '/path-file/win32yank.exe -i --crlf',
+  \      '+': 'win32yank.exe -i --crlf',
+  \      '*': 'win32yank.exe -i --crlf',
   \    },
   \   'paste': {
-  \      '+': '/path-file/win32yank.exe -o --lf',
-  \      '*': '/path-file/win32yank.exe -o --lf',
+  \      '+': 'win32yank.exe -o --lf',
+  \      '*': 'win32yank.exe -o --lf',
   \   },
   \   'cache_enabled': 0,
   \ }
