@@ -16,3 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 require("mappings")
 require("lazy").setup("plugins")
 require("options")
+if vim.env.WSL_INTEROP then
+  require("windows") -- windows.lua
+elseif vim.loop.os_uname().sysname == "Darwin" then
+  require("darwin") -- darwin.lua
+end

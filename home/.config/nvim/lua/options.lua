@@ -11,20 +11,3 @@ opt.shiftwidth = 2
 opt.number=true
 opt.signcolumn = 'yes'
 
-if vim.env.WSL_INTEROP then
-  vim.g.clipboard = {
-    name = 'win32yank-wsl',
-    copy = {
-      ["+"] = 'win32yank.exe -i --crlf',
-      ["*"] = 'win32yank.exe -i --crlf',
-    },
-    paste = {
-      ["+"] = 'win32yank.exe -o --lf',
-      ["*"] = 'win32yank.exe -o --lf',
-    },
-    cache_enabled = 0,
-  }
-elseif vim.loop.os_uname().sysname == "Darwin" then
-  vim.g.clipboard=unnamed
-end
-
