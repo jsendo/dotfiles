@@ -4,10 +4,10 @@ return {
     tag = '0.1.0',
     dependencies = { 
      'nvim-lua/plenary.nvim',
-     --{'nvim-telescope/telescope-fzy-native.nvim', build = 'make'},
-     {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'},
+      {'nvim-telescope/telescope-fzy-native.nvim', build = 'make'},
+      {'nvim-telescope/telescope-fzf-native.nvim', build = 'make'},
     },
-    keys = {"<leader>t", "<leader>g", "<leader>b", "<leader>fh", "<leader>lr", "<leader>ld", "<leader>li"},
+    --keys = {"C-t", "C-g", "C-b", "<leader>fh", "<leader>lr", "<leader>ld", "<leader>li"},
     config = function(plugin, opts)
       -- most of this is default settings
       local telescope = require("telescope")
@@ -22,14 +22,15 @@ return {
       }, { prefix = "<leader>"})
 
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>t', builtin.git_files, {})
-      vim.keymap.set('n', '<leader>f', builtin.find_files, {})
-      vim.keymap.set('n', '<leader>g', builtin.live_grep, {})
-      vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-      vim.keymap.set("n", "<leader>lr", builtin.lsp_references, {})
-      vim.keymap.set("n", "<leader>ld", builtin.lsp_definitions, {})
-      vim.keymap.set("n", "<leader>li", builtin.lsp_implementations, {})
+      local km = vim.keymap
+      km.set('n', '<C-t>', builtin.git_files, { noremap = true })
+      km.set('n', '<C-f>', builtin.find_files, {})
+      km.set('n', '<C-g>', builtin.live_grep, {})
+      km.set('n', '<C-b>', builtin.buffers, {})
+      km.set('n', '<leader>fh', builtin.help_tags, {})
+      km.set("n", "<leader>lr", builtin.lsp_references, {})
+      km.set("n", "<leader>ld", builtin.lsp_definitions, {})
+      km.set("n", "<leader>li", builtin.lsp_implementations, {})
 
       telescope.setup {
         defaults = {
@@ -40,8 +41,8 @@ return {
           },
         },
       }
-      --telescope.load_extension("fzy_native")
-      telescope.load_extension("fzf")
+      telescope.load_extension("fzy_native")
+      --telescope.load_extension("fzf")
     end
   }
 }

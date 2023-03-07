@@ -1,5 +1,5 @@
-vim.g.ruby_host_prog = "/Users/jason/.asdf/installs/ruby/3.1.3/bin/neovim-ruby-host"
-vim.g.node_host_prog = "/Users/jason/.asdf/installs/nodejs/19.4.0/lib/node_modules/neovim/bin/cli.js"
+--vim.g.ruby_host_prog = "/Users/jason/.asdf/installs/ruby/3.1.3/bin/neovim-ruby-host"
+--vim.g.node_host_prog = "/Users/jason/.asdf/installs/nodejs/19.4.0/lib/node_modules/neovim/bin/cli.js"
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
